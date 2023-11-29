@@ -2,7 +2,9 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { signupApi } from "../Global/features/User/signupSlice";
+import { toast } from "react-toastify";
 export default function SignupPage() {
   const [user, setUser] = React.useState({
     username: "",
@@ -12,7 +14,8 @@ export default function SignupPage() {
   const [buttonDisable, setButtonDisable] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-
+  const dispatch = useDispatch();
+  const { status } = useSelector((value: any) => value.signup);
   useEffect(() => {
     if (
       user.username.length > 0 &&
@@ -26,10 +29,17 @@ export default function SignupPage() {
   const signUp = async () => {
     try {
       setIsLoading(true);
-      const response = await axios.post("/api/user/signup", user);
-      console.log(response.data);
-      if (response.data.success) {
+      // const response = await axios.post("/api/user/signup", user);
+      // console.log(response.data);
+      // if (response.data.success) {
+      //   router.push("/login");
+      // }
+      dispatch(signupApi(user));
+      if (status === 200 || 201) {
         router.push("/login");
+        toast.success("SignUp Successfully", {
+          position: "top-center",
+        });
       }
     } catch (error) {
       console.log(error);
