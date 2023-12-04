@@ -28,7 +28,9 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "src/app/api/posts/[post]/route.t=j's",
-    "src/app/api/posts/[post]/route.js"
-, "src/app/page.jsx"  ],
+    "src/app/api/posts/[post]/route.js",
+    "src/app/page.jsx",
+    "src/helpers/getTokenData.ts"
+  ],
   "exclude": ["node_modules"]
 }
